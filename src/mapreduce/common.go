@@ -41,3 +41,17 @@ func reduceName(jobName string, mapTask int, reduceTask int) string {
 func mergeName(jobName string, reduceTask int) string {
 	return "mrtmp." + jobName + "-res-" + strconv.Itoa(reduceTask)
 }
+
+type SortByKey []KeyValue
+
+func (b SortByKey) Len() int {
+	return len(b)
+}
+
+func (b SortByKey) Swap(i, j int) {
+	b[i], b[j] = b[j], b[i]
+}
+
+func (b SortByKey) Less(i, j int) bool {
+	return b[i].Key < b[j].Key
+}
